@@ -29,16 +29,30 @@ export function ServicesSection({
   } = useServiceCarousel();
 
   return (
-    <section id="services" className="py-20 bg-gray-50">
+    <section
+  id="services"
+  className="py-20"
+  style={{
+    background: "var(--color-background-secondary)",
+    color: "var(--color-text-primary)",
+  }}
+>
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-3">Our Services</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We offer a wide range of professional tiles and stonework services
-            for residential and commercial spaces.
-          </p>
+          <h2
+  className="text-3xl md:text-4xl font-bold mb-3"
+  style={{ color: "var(--color-accent)", fontFamily: "var(--font-heading)" }}
+>
+  My Services
+</h2>
+<p
+  className="text-lg max-w-2xl mx-auto"
+  style={{ color: "var(--color-text-secondary)", fontFamily: "var(--font-primary)" }}
+>
+ We craft next-generation digital experiences with cutting-edge web development, mobile applications, AI/ML innovation, blockchain solutions, and user-centric design.
+ </p>
         </div>
-
+ 
         <div className="relative">
           {/* Arrow left (desktop/tablet only) */}
           {showArrows && (
