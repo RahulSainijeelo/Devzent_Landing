@@ -1,5 +1,3 @@
-// Services data for the Tiles and Labour Contractor site
-
 export type Service = {
   id: string;
   title: string;
@@ -9,40 +7,34 @@ export type Service = {
 
 export const services: Service[] = [
   {
-    id: "tiles-work",
-    title: "Tiles Installation",
-    description: "Professional installation of ceramic, porcelain, and vitrified tiles for floors and walls with precision and expertise.",
-    imageUrl: "https://images.pexels.com/photos/5712145/pexels-photo-5712145.jpeg?auto=compress&cs=tinysrgb&w=1280"
+    id: "web-development",
+    title: "Web Development",
+    description: "Full-stack web development using modern technologies like React, Next.js, Node.js, and Python. Building responsive, scalable, and high-performance web applications.",
+    imageUrl: "https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?auto=compress&cs=tinysrgb&w=1280"
   },
   {
-    id: "marble-work",
-    title: "Marble Flooring",
-    description: "Elegant marble installation for floors, countertops, and decorative elements to enhance the aesthetic appeal of your space.",
-    imageUrl: "https://images.pexels.com/photos/1571472/pexels-photo-1571472.jpeg?auto=compress&cs=tinysrgb&w=1280"
+    id: "app-development",
+    title: "App Development",
+    description: "Native and cross-platform mobile app development for iOS and Android using React Native, Flutter, Swift, and Kotlin. Creating user-friendly mobile solutions.",
+    imageUrl: "https://images.pexels.com/photos/147413/twitter-facebook-together-exchange-of-information-147413.jpeg?auto=compress&cs=tinysrgb&w=1280"
   },
   {
-    id: "kota-stone",
-    title: "Kota Stone Work",
-    description: "Durable and economical Kota stone installation for floors and outdoor spaces with superior finishing and polishing.",
-    imageUrl: "https://images.pexels.com/photos/631411/pexels-photo-631411.jpeg?auto=compress&cs=tinysrgb&w=1280"
+    id: "ai-ml",
+    title: "AI/ML Solutions",
+    description: "Artificial Intelligence and Machine Learning solutions including predictive analytics, NLP, computer vision, and custom AI models using Python, TensorFlow, and PyTorch.",
+    imageUrl: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1280"
   },
   {
-    id: "ladi-work",
-    title: "Ladi Work",
-    description: "Custom ladi installations for patios, walkways, and decorative areas with attention to design and durability.",
-    imageUrl: "https://images.pexels.com/photos/5708081/pexels-photo-5708081.jpeg?auto=compress&cs=tinysrgb&w=1280"
+    id: "blockchain",
+    title: "Blockchain Development",
+    description: "Smart contract development, DeFi applications, NFT platforms, and decentralized applications (DApps) using Solidity, Web3, Ethereum, and other blockchain technologies.",
+    imageUrl: "https://images.pexels.com/photos/844124/pexels-photo-844124.jpeg?auto=compress&cs=tinysrgb&w=1280"
   },
   {
-    id: "bathroom-tiling",
-    title: "Bathroom Tiling",
-    description: "Waterproof and aesthetic tiling solutions for bathrooms, including shower areas, floors, and feature walls.",
-    imageUrl: "https://images.pexels.com/photos/6585757/pexels-photo-6585757.jpeg?auto=compress&cs=tinysrgb&w=1280"
-  },
-  {
-    id: "stone-cladding",
-    title: "Stone Cladding",
-    description: "Decorative stone cladding for interior and exterior walls to add texture and visual interest to your property.",
-    imageUrl: "https://images.pexels.com/photos/276528/pexels-photo-276528.jpeg?auto=compress&cs=tinysrgb&w=1280"
+    id: "ui-ux-design",
+    title: "UI/UX Design",
+    description: "User-centered design solutions including wireframing, prototyping, user research, and creating intuitive interfaces using Figma, Adobe XD, and modern design principles.",
+    imageUrl: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=1280"
   }
 ];
 
@@ -58,45 +50,45 @@ export type PortfolioItem = {
 export const portfolioItems: PortfolioItem[] = [
   {
     id: "portfolio-1",
-    title: "Luxury Marble Flooring",
-    category: "Marble",
-    images:[ "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1280"],
-    description: "Complete marble flooring installation for a 3BHK apartment in Nerul."
+    title: "E-commerce Platform",
+    category: "Web Development",
+    images:[ "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1280"],
+    description: "Full-stack e-commerce website with payment integration and admin dashboard using React, Next.js, and Node.js."
   },
   {
     id: "portfolio-2",
-    title: "Modern Bathroom Renovation",
-    category: "Tiles",
-    images:[ "https://images.pexels.com/photos/6585754/pexels-photo-6585754.jpeg?auto=compress&cs=tinysrgb&w=1280"],
-    description: "Full bathroom renovation with premium tiles and fittings."
+    title: "Fitness Tracking App",
+    category: "App Development",
+    images:[ "https://images.pexels.com/photos/147413/twitter-facebook-together-exchange-of-information-147413.jpeg?auto=compress&cs=tinysrgb&w=1280"],
+    description: "Cross-platform mobile app built with React Native featuring workout tracking, progress analytics, and social features."
   },
   {
     id: "portfolio-3",
-    title: "Outdoor Patio Design",
-    category: "Kota Stone",
-    images:[ "https://images.pexels.com/photos/1643389/pexels-photo-1643389.jpeg?auto=compress&cs=tinysrgb&w=1280"],
-    description: "Kota stone installation for a residential backyard patio."
+    title: "AI Chatbot System",
+    category: "AI/ML",
+    images:[ "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1280"],
+    description: "Intelligent customer service chatbot using NLP and machine learning to handle 80% of customer queries automatically."
   },
   {
     id: "portfolio-4",
-    title: "Kitchen Backsplash",
-    category: "Tiles",
-    images: ["https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1280"],
-    description: "Designer kitchen backsplash with premium ceramic tiles."
+    title: "DeFi Trading Platform",
+    category: "Blockchain",
+    images: ["https://images.pexels.com/photos/844124/pexels-photo-844124.jpeg?auto=compress&cs=tinysrgb&w=1280"],
+    description: "Decentralized finance platform with smart contracts for automated trading and yield farming on Ethereum."
   },
   {
     id: "portfolio-5",
-    title: "Office Flooring Project",
-    category: "Vitrified Tiles",
-    images:[ "https://images.pexels.com/photos/1643389/pexels-photo-1643389.jpeg?auto=compress&cs=tinysrgb&w=1280"],
-    description: "Complete office space flooring with durable vitrified tiles."
+    title: "SaaS Dashboard Design",
+    category: "UI/UX Design",
+    images:[ "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=1280"],
+    description: "Modern dashboard interface design for a SaaS platform with data visualization and user-friendly navigation."
   },
   {
     id: "portfolio-6",
-    title: "Residential Pathway",
-    category: "Ladi",
-        images: ["https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1280"],
-    description: "Decorative pathway using custom ladi work for a garden area."
+    title: "Predictive Analytics Tool",
+    category: "AI/ML",
+    images: ["https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1280"],
+    description: "Machine learning model for sales forecasting and inventory management using Python and TensorFlow."
   }
 ];
 
@@ -112,37 +104,37 @@ export type Review = {
 export const reviews: Review[] = [
   {
     id: "review-1",
-    name: "Rajesh Sharma",
+    name: "Sarah Johnson",
     rating: 5,
-    comment: "Excellent craftsmanship! Kailash did a fantastic job with our kitchen tiles. Very professional and completed the work on time.",
-    date: "2023-08-15"
+    comment: "Outstanding web development work! Built our company website with React and Next.js. Professional, fast, and delivered exactly what we needed.",
+    date: "2024-06-15"
   },
   {
     id: "review-2",
-    name: "Priya Mehta",
+    name: "Mike Chen",
     rating: 5,
-    comment: "We hired Kailash for our bathroom renovation and are extremely happy with the results. Great attention to detail and very reasonable pricing.",
-    date: "2023-09-22"
+    comment: "Excellent mobile app development! Created our iOS and Android app using React Native. Great communication and technical expertise throughout.",
+    date: "2024-07-22"
   },
   {
     id: "review-3",
-    name: "Sunil Patel",
-    rating: 4,
-    comment: "Good quality work for our marble flooring. The team was punctual and finished the job as promised. Would recommend.",
-    date: "2023-10-05"
+    name: "Dr. Amanda Rodriguez",
+    rating: 5,
+    comment: "Brilliant AI/ML work! Developed a predictive model that improved our business efficiency by 40%. Highly skilled in Python and machine learning.",
+    date: "2024-05-10"
   },
   {
     id: "review-4",
-    name: "Anjali Desai",
+    name: "David Thompson",
     rating: 5,
-    comment: "Kailash and his team did an amazing job with the stone cladding for our living room wall. Very skilled and professional.",
-    date: "2023-11-19"
+    comment: "Amazing blockchain development! Built our DeFi platform with smart contracts. Deep knowledge of Solidity and Web3 technologies. Highly recommend!",
+    date: "2024-08-19"
   },
   {
     id: "review-5",
-    name: "Vikram Singh",
-    rating: 4,
-    comment: "Hired for ladi work in our garden path. Good quality work and reasonable rates. They cleaned up well after completing the job.",
-    date: "2024-01-08"
+    name: "Lisa Park",
+    rating: 5,
+    comment: "Exceptional UI/UX design work! Created beautiful, user-friendly interfaces for our SaaS platform. Great attention to detail and modern design principles.",
+    date: "2024-04-08"
   }
 ];
