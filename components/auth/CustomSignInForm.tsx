@@ -5,8 +5,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft, CodeSquare } from "lucide-react"; // If you use lucide-react icons
-
+import { ArrowLeft, Mail, Shield } from "lucide-react";
+import Google from "@/public/icons/Google.png";
+import Image from "next/image";
 export default function CustomSignInForm() {
   const { signIn, isLoaded } = useSignIn();
   const [email, setEmail] = useState("");
@@ -77,7 +78,7 @@ export default function CustomSignInForm() {
         code: otp,
       });
       if (res.status === "complete") {
-        window.location.href = "/dashboard"; // <-- Force full reload
+        window.location.href = "/dashboard";
       } else {
         toast({
           title: "Sign in failed",
@@ -104,8 +105,6 @@ export default function CustomSignInForm() {
     setPendingGoogle(true);
     console.log("Redirecting to Google sign in...");
     try {
-      // Optional: force a full reload to clear Clerk's internal state
-      // window.location.href = "/dashboard?google_oauth=1";
       console.log("Starting Google OAuth flow...");
       const data = await signIn.authenticateWithRedirect({
         strategy: "oauth_google",
@@ -132,74 +131,221 @@ export default function CustomSignInForm() {
   };
 
   return (
-    <div className="bg-white p-8 rounded shadow ">
-      <div className="flex items-center align-baseline mb-4">
+    <div style={{ fontFamily: "var(--font-primary)" }}>
+      {/* Header */}
+      <div className="flex items-center justify-between mb-8">
         <Button
           variant="ghost"
           size="icon"
           onClick={() => router.push("/")}
           aria-label="Back to home"
-          className="mr-2"
           title="Back to home"
+          className="hover:bg-gray-100"
+          style={{
+            color: "#6b7280",
+            borderRadius: "8px",
+          }}
         >
-          <ArrowLeft />
+          <ArrowLeft className="h-5 w-5" />
         </Button>
-        <h2 className="text-xl font-bold">Sign In</h2>
+
+        <div className="text-center flex-1">
+          <div
+            className="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center"
+            style={{ backgroundColor: "#dbeafe" }}
+          >
+            <Shield className="h-6 w-6" style={{ color: "#3b82f6" }} />
+          </div>
+          <h2
+            className="text-2xl font-bold"
+            style={{
+              color: "#000000",
+              fontFamily: "var(--font-heading)",
+            }}
+          >
+            Welcome Back
+          </h2>
+          <p className="text-sm mt-1" style={{ color: "#64748b" }}>
+            Sign in to access your Devzent dashboard
+          </p>
+        </div>
       </div>
+
+      {/* Email/OTP Form */}
       {!otpSent ? (
-        <form onSubmit={handleEmailSubmit}>
-          <Input
-            type="email"
-            placeholder="Email"
-            autoComplete="username"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            disabled={pendingOtp || pendingGoogle}
-            className="mb-4"
-          />
+        <form onSubmit={handleEmailSubmit} className="mb-6">
+          <div className="mb-4">
+            <label
+              className="block text-sm font-medium mb-2"
+              style={{ color: "#374151" }}
+            >
+              Email Address
+            </label>
+            <div className="relative">
+              <Mail
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4"
+                style={{ color: "#9ca3af" }}
+              />
+              <Input
+                type="email"
+                placeholder="Enter your email address"
+                autoComplete="username"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={pendingOtp || pendingGoogle}
+                className="pl-10"
+                style={{
+                  backgroundColor: "#ffffff",
+                  borderColor: "#d1d5db",
+                  color: "#000000",
+                  fontSize: "14px",
+                }}
+              />
+            </div>
+          </div>
+
           <Button
             type="submit"
             className="w-full mb-4"
             disabled={pendingOtp || pendingGoogle}
+            style={{
+              backgroundColor: "#3b82f6",
+              color: "#ffffff",
+              fontWeight: "600",
+              padding: "12px",
+              borderRadius: "8px",
+              border: "none",
+            }}
           >
-            {pendingOtp ? "Sending OTP..." : "Sign in with Email"}
+            {pendingOtp ? (
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                Sending OTP...
+              </div>
+            ) : (
+              "Send Verification Code"
+            )}
           </Button>
         </form>
       ) : (
-        <form onSubmit={handleOtpSubmit}>
-          <Input
-            type="text"
-            placeholder="Enter OTP"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-            required
-            disabled={pendingOtp || pendingGoogle}
-            className="mb-4"
-          />
+        <form onSubmit={handleOtpSubmit} className="mb-6">
+          <div className="mb-4">
+            <label
+              className="block text-sm font-medium mb-2"
+              style={{ color: "#374151" }}
+            >
+              Verification Code
+            </label>
+            <Input
+              type="text"
+              placeholder="Enter 6-digit code"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              required
+              disabled={pendingOtp || pendingGoogle}
+              maxLength={6}
+              className="text-center text-lg tracking-widest"
+              style={{
+                backgroundColor: "#ffffff",
+                borderColor: "#d1d5db",
+                color: "#000000",
+                fontSize: "16px",
+                letterSpacing: "0.2em",
+              }}
+            />
+            <p
+              className="text-xs mt-2 text-center"
+              style={{ color: "#64748b" }}
+            >
+              Check your email for the verification code
+            </p>
+          </div>
+
           <Button
             type="submit"
             className="w-full mb-4"
             disabled={pendingOtp || pendingGoogle}
+            style={{
+              backgroundColor: "#10b981",
+              color: "#ffffff",
+              fontWeight: "600",
+              padding: "12px",
+              borderRadius: "8px",
+              border: "none",
+            }}
           >
-            {pendingOtp ? "Verifying..." : "Verify OTP"}
+            {pendingOtp ? (
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                Verifying...
+              </div>
+            ) : (
+              "Verify & Sign In"
+            )}
+          </Button>
+
+          <Button
+            type="button"
+            variant="ghost"
+            className="w-full text-sm"
+            onClick={() => {
+              setOtpSent(false);
+              setOtp("");
+              setPendingVerification(null);
+            }}
+            style={{ color: "#6b7280" }}
+          >
+            ← Back to email
           </Button>
         </form>
       )}
-      <div className="flex items-center my-4">
-        <div className="flex-grow border-t" />
-        <span className="mx-2 text-gray-400 text-xs">OR</span>
-        <div className="flex-grow border-t" />
+
+      {/* Divider */}
+      <div className="flex items-center my-6">
+        <div
+          className="flex-grow border-t"
+          style={{ borderColor: "#e5e7eb" }}
+        />
+        <span className="mx-4 text-xs font-medium" style={{ color: "#9ca3af" }}>
+          OR
+        </span>
+        <div
+          className="flex-grow border-t"
+          style={{ borderColor: "#e5e7eb" }}
+        />
       </div>
+
+      {/* Google Sign In */}
       <Button
         type="button"
-        className="w-full"
         variant="outline"
         onClick={handleGoogle}
         disabled={pendingGoogle || pendingOtp}
+        className="w-full"
+        style={{
+          backgroundColor: "#ffffff",
+          borderColor: "#d1d5db",
+          color: "#374151",
+          fontWeight: "500",
+          padding: "12px",
+          borderRadius: "8px",
+        }}
       >
-        {pendingGoogle ? "Redirecting..." : "Sign in with Google"}
+        {pendingGoogle ? (
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
+            Redirecting...
+          </div>
+        ) : (
+          <div className="flex items-center gap-3">
+            <Image alt="Google" width={32} height={32} src={Google} />
+            Continue with Google
+          </div>
+        )}
       </Button>
+
+      {/* Footer */}
     </div>
   );
 }

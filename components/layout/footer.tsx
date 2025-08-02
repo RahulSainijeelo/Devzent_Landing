@@ -19,6 +19,7 @@ interface Profile {
   bio?: string;
   phoneNumbers?: string[];
   email?: string;
+  address?: string;
   workingHours?: string;
 }
 
@@ -83,7 +84,7 @@ export function Footer({ profile, loading }: FooterProps) {
             >
               {loading
                 ? "Loading bio..."
-                : profile?.bio ||
+                : profile?.address ||
                   "We are a dedicated team of developers, designers, and blockchain specialists delivering premium freelance tech solutions. From innovative blockchain projects to AI-powered applications."}
             </p>
 
@@ -132,8 +133,7 @@ export function Footer({ profile, loading }: FooterProps) {
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service.name}>
-                  <Link
-                    href={service.href}
+                  <div
                     className="flex items-center group transition-colors"
                     style={{
                       color: "var(--color-text-secondary)",
@@ -148,7 +148,7 @@ export function Footer({ profile, loading }: FooterProps) {
                     <span className="group-hover:text-white">
                       {service.name}
                     </span>
-                  </Link>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -238,9 +238,8 @@ export function Footer({ profile, loading }: FooterProps) {
                 {[
                   { name: "Portfolio", href: "#portfolio" },
                   { name: "About Us", href: "#about" },
-                  { name: "Testimonials", href: "#testimonials" },
+                  { name: "Reviews", href: "#reviews" },
                   { name: "Contact", href: "#contact" },
-                  { name: "Blog", href: "#blog" },
                 ].map((link) => (
                   <li key={link.name}>
                     <Link
@@ -274,29 +273,6 @@ export function Footer({ profile, loading }: FooterProps) {
               © {new Date().getFullYear()}{" "}
               {profile?.name || "Tech Solutions Team"}. All rights reserved.
             </p>
-
-            <div className="flex items-center gap-6">
-              <Link
-                href="/privacy"
-                className="text-sm hover:text-white transition-colors"
-                style={{
-                  color: "var(--color-text-muted)",
-                  transition: "var(--transition-fast)",
-                }}
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms"
-                className="text-sm hover:text-white transition-colors"
-                style={{
-                  color: "var(--color-text-muted)",
-                  transition: "var(--transition-fast)",
-                }}
-              >
-                Terms of Service
-              </Link>
-            </div>
           </div>
         </div>
       </div>

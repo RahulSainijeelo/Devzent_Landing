@@ -10,7 +10,6 @@ import { useProfile } from "@/hooks/useProfile";
 
 export default function Home() {
   const { profile, loading } = useProfile();
-
   if (loading || !profile) {
     // Show a full-page loader until profile is ready
     return;

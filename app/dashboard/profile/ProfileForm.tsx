@@ -118,10 +118,10 @@ export function ProfileForm({
               />
             </div>
             <div className="md:col-span-2">
-              <Label>Address</Label>
+              <Label>Description</Label>
               <Textarea
-                name="address"
-                value={profile.address}
+                name="description"
+                value={profile.description}
                 onChange={handleChange}
                 disabled={!editMode}
               />

@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/form";
 import { StarRating } from "@/components/ui/star-rating";
 import { toast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
 
 const reviewSchema = z.object({
   enquiryId: z.string().min(7, { message: "Enquiry ID is required" }).max(7, {
@@ -49,6 +51,8 @@ export function ReviewFormDialog({
   onOpenChange,
   onSuccess,
 }: ReviewFormDialogProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const form = useForm<ReviewFormValues>({
     resolver: zodResolver(reviewSchema),
     defaultValues: {
@@ -61,6 +65,7 @@ export function ReviewFormDialog({
   });
 
   const onSubmit = async (data: ReviewFormValues) => {
+    setIsSubmitting(true);
     try {
       const res = await fetch("/api/reviews", {
         method: "POST",
@@ -72,9 +77,9 @@ export function ReviewFormDialog({
         const err = await res.json();
         toast({
           title: "Submission failed",
-          description: err.error
-            ? typeof err.error === "string"
-              ? err.error
+          description: err
+            ? typeof err.message === "string"
+              ? err.message
               : "Please check your input."
             : "Something went wrong.",
           variant: "destructive",
@@ -91,6 +96,8 @@ export function ReviewFormDialog({
         description: "Something went wrong.",
         variant: "destructive",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -139,7 +146,11 @@ export function ReviewFormDialog({
                         ENQ-
                       </div>
                       <FormControl className="flex-1">
-                        <Input placeholder="1234567" {...field} />
+                        <Input
+                          placeholder="1234567"
+                          {...field}
+                          disabled={isSubmitting}
+                        />
                       </FormControl>
                     </div>
                     <FormDescription
@@ -161,7 +172,11 @@ export function ReviewFormDialog({
                       Name
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="Your name" {...field} />
+                      <Input
+                        placeholder="Your name"
+                        {...field}
+                        disabled={isSubmitting}
+                      />
                     </FormControl>
                     <FormMessage style={{ color: "var(--color-accent)" }} />
                   </FormItem>
@@ -181,6 +196,7 @@ export function ReviewFormDialog({
                         type="email"
                         placeholder="Your email address"
                         {...field}
+                        disabled={isSubmitting}
                       />
                     </FormControl>
                     <FormDescription
@@ -225,6 +241,7 @@ export function ReviewFormDialog({
                         placeholder="Share your experience with our services..."
                         className="min-h-[120px] resize-none"
                         {...field}
+                        disabled={isSubmitting}
                       />
                     </FormControl>
                     <FormMessage style={{ color: "var(--color-accent)" }} />
@@ -240,6 +257,7 @@ export function ReviewFormDialog({
                 <Button
                   type="submit"
                   className="w-full"
+                  disabled={isSubmitting}
                   style={{
                     background: "var(--gradient-accent)",
                     color: "var(--color-text-primary)",
@@ -247,9 +265,18 @@ export function ReviewFormDialog({
                     borderRadius: "var(--radius-lg)",
                     fontWeight: "600",
                     padding: "0.75rem",
+                    opacity: isSubmitting ? 0.7 : 1,
+                    cursor: isSubmitting ? "not-allowed" : "pointer",
                   }}
                 >
-                  Submit Review
+                  {isSubmitting ? (
+                    <div className="flex items-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Submitting...
+                    </div>
+                  ) : (
+                    "Submit Review"
+                  )}
                 </Button>
               </div>
             </form>

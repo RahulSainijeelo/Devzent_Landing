@@ -93,11 +93,13 @@ export function useProfile(imgbbApiKey: string) {
     e.preventDefault();
     setSubmitting(true);
     try {
+      console.log("Submitting profile:", profile);
       const res = await fetch("/api/profile", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(profile),
       });
+      console.log("Response status:", res);
       if (!res.ok) throw new Error();
       toast({ title: "Profile updated" });
       setEditMode(false);

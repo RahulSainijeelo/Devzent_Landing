@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { db } from "@/config/firebase"; // Admin SDK
 import { NextRequest, NextResponse } from "next/server";
-
+import { nanoid } from "nanoid";
 // Allowed status values
 const statusEnum = z.enum(["new", "contacted", "completed", "rejected"]);
 
@@ -37,7 +37,8 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const id = `ENQ-${Date.now().toString().slice(0, 7)}`;
+
+    const id = nanoid(7);
     const data = enquirySchema.parse({
       ...body,
       id,

@@ -16,7 +16,7 @@ export function ReviewCard({ review }: { review: any }) {
         </div>
       </CardHeader>
       <CardContent>
-        <p className="text-gray-700">{review.comment}</p>
+        <p className="text-gray-300">{review.comment}</p>
       </CardContent>
     </Card>
   );

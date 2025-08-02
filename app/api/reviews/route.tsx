@@ -12,7 +12,6 @@ const reviewSchema = z.object({
 
 export async function GET() {
   try {
-    console.log("GET request received for reviews");
     const snapshot = await db.collection("reviews").get();
     const data = snapshot.docs.map((doc: any) => ({
       id: doc.id,
@@ -31,36 +30,22 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const data = reviewSchema.parse(body);
-
-    // ---------------------------starts here -----------------------
-    // Check if enquiry exists with matching email and enquiryId
-    // const enquirySnap = await db
-    //   .collection("enquiries")
-    //   .where("id", "==", data.enquiryId)
-    //   .where("email", "==", data.email)
-    //   .get();
-
-    // if (enquirySnap.empty) {
-    //   return new Response(
-    //     "No matching enquiry found for this email and enquiry number.",
-    //     { status: 400 }
-    //   );
-    // }
-
-    // Check if a review already exists for this enquiry
-    // const reviewSnap = await db
-    //   .collection("reviews")
-    //   .where("enquiryId", "==", data.enquiryId)
-    //   .get();
-
-    // if (!reviewSnap.empty) {
-    //   return new Response("A review for this enquiry already exists.", {
-    //     status: 400,
-    //   });
-    // }
-
-    // -----------------------ends here -----------------------
-    // Always add status: "pending"
+    const snapshot = await db
+      .collection("enquiries")
+      .where("id", "==", data.enquiryId)
+      .get();
+    if (snapshot.empty) {
+      return NextResponse.json(
+        { message: "Enquiry not found" },
+        { status: 404 }
+      );
+    }
+    if (snapshot.docs[0].data().status !== "completed") {
+      return NextResponse.json(
+        { message: "Enquiry Not completed Yet" },
+        { status: 400 }
+      );
+    }
     await db.collection("reviews").add({
       ...data,
       status: "pending",
@@ -111,20 +96,13 @@ export async function DELETE(request: Request) {
 
 export async function PUT(request: Request) {
   try {
-    console.log("PUT request received for reviews");
-
     const { id, status } = await request.json();
-    console.log("Received data:", { id, status });
-
     if (!id || !["pending", "approved", "rejected"].includes(status))
       return NextResponse.json(
         { message: "Invalid id or status" },
         { status: 400 }
       );
-
-    // Find the review document where enquiryId matches
     const reviews = await db.collection("reviews").doc(id).get();
-    console.log("Snapshot size:", reviews.data());
     if (reviews.exists === false) {
       return NextResponse.json(
         { message: "Review not found" },
@@ -134,8 +112,6 @@ export async function PUT(request: Request) {
 
     // Update all matching documents (should be only one)
     await db.collection("reviews").doc(id).update({ status });
-    console.log("Review status updated successfully");
-
     return NextResponse.json(
       { message: "Review status updated" },
       { status: 200 }

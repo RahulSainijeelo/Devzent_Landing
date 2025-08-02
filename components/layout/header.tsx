@@ -30,9 +30,7 @@ export function Header() {
         isScrolled ? "backdrop-blur-md shadow-lg" : ""
       )}
       style={{
-        backgroundColor: isScrolled
-          ? "rgba(37, 55, 69, 0.95)" // var(--color-primary-700) with opacity
-          : "transparent",
+        backgroundColor: isScrolled ? "rgba(37, 55, 69, 0.95)" : "transparent",
         borderBottom: isScrolled
           ? "1px solid rgba(155, 168, 171, 0.2)" // var(--color-accent) with opacity
           : "none",
@@ -51,7 +49,7 @@ export function Header() {
               transition: "var(--transition-fast)",
             }}
           >
-            Tech Solutions
+            Devzent
           </h1>
         </Link>
 

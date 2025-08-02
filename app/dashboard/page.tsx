@@ -25,19 +25,24 @@ export default function Dashboard() {
         }}
       >
         <div className="flex-1 space-y-6 p-4 md:p-8 pt-6">
-          {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-gray-200">
+          <div
+            className="flex items-center justify-between pb-4 border-b"
+            style={{
+              background: "#fff",
+              borderBottom: "1px solid #e5e7eb",
+            }}
+          >
             <div>
               <h1
                 className="text-2xl md:text-3xl font-bold tracking-tight mb-2"
                 style={{
-                  color: "#000000",
+                  color: "#000",
                   fontFamily: "var(--font-heading)",
                 }}
               >
                 Dashboard
               </h1>
-              <p className="text-gray-600">
+              <p className="text-base" style={{ color: "#4b5563" }}>
                 Manage your freelance business operations
               </p>
             </div>
@@ -46,10 +51,12 @@ export default function Dashboard() {
                 asChild
                 variant="outline"
                 style={{
-                  backgroundColor: "white",
-                  borderColor: "#e5e7eb",
-                  color: "#374151",
-                  fontWeight: "500",
+                  background: "#fff",
+                  borderColor: "#d1d5db",
+                  color: "#111827",
+                  fontWeight: 500,
+                  borderWidth: "1px",
+                  borderStyle: "solid",
                 }}
               >
                 <Link href="/">View Website</Link>
@@ -240,44 +247,119 @@ export default function Dashboard() {
           >
             <Tabs defaultValue="enquiries" className="space-y-6">
               {/* Responsive Tabs Bar */}
-              <div className="w-full overflow-x-auto no-scrollbar md:overflow-visible">
+              <div className="w-full overflow-x-auto no-scrollbar md:overflow-visible flex justify-center">
                 <TabsList
-                  className="flex min-w-max md:min-w-0 p-1 rounded-lg"
+                  className="flex min-w-max md:min-w-0 p-1 rounded-xl shadow-sm"
                   style={{
-                    backgroundColor: "#f1f5f9",
-                    border: "1px solid #e2e8f0",
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #e5e7eb",
+                    boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
                     WebkitOverflowScrolling: "touch",
                   }}
                 >
                   <TabsTrigger
                     value="enquiries"
-                    className="px-6 py-3 text-sm font-medium rounded-md transition-all"
+                    className="px-6 py-3 text-sm font-medium rounded-lg transition-all duration-200 data-[state=active]:shadow-sm"
                     style={{
-                      color: "#374151",
+                      color: "#4b5563",
                       fontWeight: "500",
+                      minWidth: "140px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "8px",
+                    }}
+                    data-active-style={{
+                      backgroundColor: "#3b82f6",
+                      color: "#ffffff",
+                      boxShadow: "0 2px 4px 0 rgba(59, 130, 246, 0.3)",
                     }}
                   >
-                    Contact Enquiries
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
+                    </svg>
+                    Enquiries
                   </TabsTrigger>
+
                   <TabsTrigger
                     value="portfolio"
-                    className="px-6 py-3 text-sm font-medium rounded-md transition-all"
+                    className="px-6 py-3 text-sm font-medium rounded-lg transition-all duration-200 data-[state=active]:shadow-sm"
                     style={{
-                      color: "#374151",
+                      color: "#4b5563",
                       fontWeight: "500",
+                      minWidth: "140px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "8px",
+                    }}
+                    data-active-style={{
+                      backgroundColor: "#10b981",
+                      color: "#ffffff",
+                      boxShadow: "0 2px 4px 0 rgba(16, 185, 129, 0.3)",
                     }}
                   >
-                    Manage Portfolio
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                      />
+                    </svg>
+                    Portfolio
                   </TabsTrigger>
+
                   <TabsTrigger
                     value="reviews"
-                    className="px-6 py-3 text-sm font-medium rounded-md transition-all"
+                    className="px-6 py-3 text-sm font-medium rounded-lg transition-all duration-200 data-[state=active]:shadow-sm"
                     style={{
-                      color: "#374151",
+                      color: "#4b5563",
                       fontWeight: "500",
+                      minWidth: "140px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "8px",
+                    }}
+                    data-active-style={{
+                      backgroundColor: "#f59e0b",
+                      color: "#ffffff",
+                      boxShadow: "0 2px 4px 0 rgba(245, 158, 11, 0.3)",
                     }}
                   >
-                    Manage Reviews
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                      />
+                    </svg>
+                    Reviews
                   </TabsTrigger>
                 </TabsList>
               </div>

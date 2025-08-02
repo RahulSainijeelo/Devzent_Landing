@@ -28,11 +28,11 @@ export function DashboardHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b bg-background">
+    <header className="sticky top-0 z-40 shadow-lg bg-white text-black">
       <div className="container flex h-16 items-center justify-between py-4">
         <div className="flex items-center">
-          <Link href="/dashboard" className="font-bold text-lg ml-7">
-            Dashboard
+          <Link href="/dashboard" className="font-bold text-2xl ml-7">
+            Devzent
           </Link>
         </div>
         {/* Desktop navigation */}

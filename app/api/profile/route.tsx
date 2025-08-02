@@ -3,15 +3,15 @@ import { db } from "@/config/firebase";
 import { z } from "zod";
 
 const profileSchema = z.object({
-  name: z.string(),
-  bio: z.string(),
-  photo: z.string().url(),
-  phoneNumbers: z.array(z.string()),
-  email: z.string().email(),
-  address: z.string(),
-  whatsapp: z.string(),
-  experience: z.string(),
-  workingHours: z.string(),
+  name: z.string().min(1, "Name is required"),
+  bio: z.string().optional(),
+  photo: z.string().url("Invalid URL format").optional().or(z.literal("")),
+  phoneNumbers: z.array(z.string()).optional().default([]),
+  email: z.string().email("Invalid email format"),
+  address: z.string().optional(),
+  whatsapp: z.string().optional(),
+  experience: z.string().optional(),
+  workingHours: z.string().optional(),
 });
 
 const PROFILE_DOC_ID = "main"; // single profile document
