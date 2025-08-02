@@ -10,15 +10,17 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
+interface PortfolioItemDialogProps {
+  item: any;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
 export function PortfolioItemDialog({
   item,
   open,
   onOpenChange,
-}: {
-  item: any;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}) {
+}: PortfolioItemDialogProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   if (!item) return null;
@@ -37,27 +39,45 @@ export function PortfolioItemDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         className={cn(
-          "sm:max-w-xl max-h-[90vh] overflow-y-auto",
+          "sm:max-w-2xl w-[95vw] max-h-[90vh] overflow-y-auto",
           "mobile-portfolio-modal"
         )}
+        style={{
+          backgroundColor: "var(--color-surface)",
+          border: "1px solid var(--color-accent)",
+          borderRadius: "var(--radius-xl)",
+        }}
       >
         <DialogHeader>
-          <DialogTitle>{item.title}</DialogTitle>
+          <DialogTitle
+            style={{
+              color: "var(--color-text-primary)",
+              fontFamily: "var(--font-heading)",
+            }}
+          >
+            {item.title}
+          </DialogTitle>
         </DialogHeader>
-        <div className="relative aspect-video mt-4">
+
+        <div className="relative aspect-video mt-4 overflow-hidden rounded-lg">
           <Image
-            src={item.images[currentImageIndex]}
+            src={item.images?.[currentImageIndex] || "/placeholder-image.jpg"}
             alt={item.title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
-            className="object-cover rounded-md"
+            className="object-cover"
           />
-          {item.images.length > 1 && (
+          {item.images && item.images.length > 1 && (
             <>
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full"
+                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full"
+                style={{
+                  backgroundColor: "rgba(0,0,0,0.5)",
+                  color: "white",
+                  border: "none",
+                }}
                 onClick={(e) => {
                   e.stopPropagation();
                   navigateGalleryImage("prev");
@@ -68,7 +88,12 @@ export function PortfolioItemDialog({
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full"
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full"
+                style={{
+                  backgroundColor: "rgba(0,0,0,0.5)",
+                  color: "white",
+                  border: "none",
+                }}
                 onClick={(e) => {
                   e.stopPropagation();
                   navigateGalleryImage("next");
@@ -78,13 +103,51 @@ export function PortfolioItemDialog({
               </Button>
             </>
           )}
+
+          {/* Image counter */}
+          {item.images && item.images.length > 1 && (
+            <div
+              className="absolute bottom-2 right-2 px-2 py-1 rounded-full text-sm"
+              style={{
+                backgroundColor: "rgba(0,0,0,0.7)",
+                color: "white",
+              }}
+            >
+              {currentImageIndex + 1} / {item.images.length}
+            </div>
+          )}
         </div>
-        <div className="mt-4">
-          <h3 className="font-semibold text-lg">{item.title}</h3>
-          <p className="text-sm text-gray-500 mt-1">
-            Category: {item.category}
-          </p>
-          <p className="mt-4">{item.description}</p>
+
+        <div className="mt-6 space-y-4">
+          <div>
+            <h3
+              className="font-semibold text-xl mb-2"
+              style={{
+                color: "var(--color-text-primary)",
+                fontFamily: "var(--font-heading)",
+              }}
+            >
+              {item.title}
+            </h3>
+            <div
+              className="inline-block px-3 py-1 rounded-full text-sm"
+              style={{
+                backgroundColor: "var(--color-accent)",
+                color: "var(--color-primary-900)",
+              }}
+            >
+              {item.category}
+            </div>
+          </div>
+
+          {item.description && (
+            <p
+              className="text-base leading-relaxed"
+              style={{ color: "var(--color-text-secondary)" }}
+            >
+              {item.description}
+            </p>
+          )}
         </div>
       </DialogContent>
     </Dialog>

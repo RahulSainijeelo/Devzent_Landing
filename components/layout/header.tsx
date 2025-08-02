@@ -27,25 +27,36 @@ export function Header() {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full",
-        isScrolled
-          ? "bg-white/90 backdrop-blur-sm shadow-sm dark:bg-gray-900/90"
-          : "bg-transparent"
+        isScrolled ? "backdrop-blur-md shadow-lg" : ""
       )}
+      style={{
+        backgroundColor: isScrolled
+          ? "rgba(37, 55, 69, 0.95)" // var(--color-primary-700) with opacity
+          : "transparent",
+        borderBottom: isScrolled
+          ? "1px solid rgba(155, 168, 171, 0.2)" // var(--color-accent) with opacity
+          : "none",
+        transition: "var(--transition-normal)",
+      }}
     >
-      <div className="container mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
+      <div className="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center">
           <h1
             className={cn(
-              "text-xl font-bold tracking-tight transition-colors",
-              isScrolled ? "text-primary" : "text-white"
+              "text-xl md:text-2xl font-bold tracking-tight transition-colors"
             )}
+            style={{
+              color: "var(--color-text-primary)",
+              fontFamily: "var(--font-heading)",
+              transition: "var(--transition-fast)",
+            }}
           >
-            S&K Enterprises
+            Tech Solutions
           </h1>
         </Link>
 
         {/* Desktop Menu */}
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="hidden md:flex items-center space-x-8">
           <NavLink href="#services" isScrolled={isScrolled}>
             Services
           </NavLink>
@@ -60,14 +71,52 @@ export function Header() {
           </NavLink>
           {isSignedIn ? (
             <Link href="/dashboard">
-              <Button variant="outline" className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 transition-all duration-300"
+                style={{
+                  backgroundColor: "transparent",
+                  borderColor: "var(--color-accent)",
+                  color: "var(--color-text-primary)",
+                  borderRadius: "var(--radius-md)",
+                  padding: "0.5rem 1rem",
+                  transition: "var(--transition-normal)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "var(--color-accent)";
+                  e.currentTarget.style.color = "var(--color-primary-900)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                  e.currentTarget.style.color = "var(--color-text-primary)";
+                }}
+              >
                 <User size={16} />
                 <span>Dashboard</span>
               </Button>
             </Link>
           ) : (
             <Link href="/sign-in">
-              <Button variant="outline" className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 transition-all duration-300"
+                style={{
+                  backgroundColor: "transparent",
+                  borderColor: "var(--color-accent)",
+                  color: "var(--color-text-primary)",
+                  borderRadius: "var(--radius-md)",
+                  padding: "0.5rem 1rem",
+                  transition: "var(--transition-normal)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "var(--color-accent)";
+                  e.currentTarget.style.color = "var(--color-primary-900)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                  e.currentTarget.style.color = "var(--color-text-primary)";
+                }}
+              >
                 <User size={16} />
                 <span>Login</span>
               </Button>
@@ -77,9 +126,14 @@ export function Header() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-primary"
+          className="md:hidden transition-colors duration-300"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
+          style={{
+            color: "var(--color-text-primary)",
+            padding: "0.5rem",
+            borderRadius: "var(--radius-sm)",
+          }}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -87,8 +141,15 @@ export function Header() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 shadow-lg">
-          <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
+        <div
+          className="md:hidden shadow-xl border-t"
+          style={{
+            backgroundColor: "var(--color-surface)",
+            borderColor: "rgba(155, 168, 171, 0.2)",
+            backdropFilter: "blur(12px)",
+          }}
+        >
+          <nav className="container mx-auto px-4 py-6 flex flex-col space-y-4">
             <MobileNavLink
               href="#services"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -113,30 +174,55 @@ export function Header() {
             >
               Contact
             </MobileNavLink>
-            {isSignedIn ? (
-              <Link
-                href="/dashboard"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <Button
-                  variant="outline"
-                  className="w-full flex items-center justify-center gap-2"
+
+            <div
+              className="pt-4 border-t"
+              style={{ borderColor: "rgba(155, 168, 171, 0.2)" }}
+            >
+              {isSignedIn ? (
+                <Link
+                  href="/dashboard"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <User size={16} />
-                  <span>Dashboard</span>
-                </Button>
-              </Link>
-            ) : (
-              <Link href="/sign-in" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button
-                  variant="outline"
-                  className="w-full flex items-center justify-center gap-2"
+                  <Button
+                    variant="outline"
+                    className="w-full flex items-center justify-center gap-2"
+                    style={{
+                      backgroundColor: "var(--color-accent)",
+                      borderColor: "var(--color-accent)",
+                      color: "var(--color-primary-900)",
+                      borderRadius: "var(--radius-md)",
+                      padding: "0.75rem 1rem",
+                      fontWeight: "500",
+                    }}
+                  >
+                    <User size={16} />
+                    <span>Dashboard</span>
+                  </Button>
+                </Link>
+              ) : (
+                <Link
+                  href="/sign-in"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <User size={16} />
-                  <span>Login</span>
-                </Button>
-              </Link>
-            )}
+                  <Button
+                    variant="outline"
+                    className="w-full flex items-center justify-center gap-2"
+                    style={{
+                      backgroundColor: "var(--color-accent)",
+                      borderColor: "var(--color-accent)",
+                      color: "var(--color-primary-900)",
+                      borderRadius: "var(--radius-md)",
+                      padding: "0.75rem 1rem",
+                      fontWeight: "500",
+                    }}
+                  >
+                    <User size={16} />
+                    <span>Login</span>
+                  </Button>
+                </Link>
+              )}
+            </div>
           </nav>
         </div>
       )}
@@ -157,11 +243,19 @@ function NavLink({
     <Link
       href={href}
       className={cn(
-        "text-sm font-medium transition-colors hover:text-primary",
-        isScrolled ? "text-foreground" : "text-white hover:text-white/80"
+        "text-sm font-medium transition-all duration-300 relative group py-2"
       )}
+      style={{
+        color: "var(--color-text-primary)",
+        fontFamily: "var(--font-primary)",
+        transition: "var(--transition-fast)",
+      }}
     >
       {children}
+      <span
+        className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full"
+        style={{ backgroundColor: "var(--color-accent)" }}
+      />
     </Link>
   );
 }
@@ -178,8 +272,21 @@ function MobileNavLink({
   return (
     <Link
       href={href}
-      className="text-foreground text-base font-medium py-2"
+      className="text-base font-medium py-3 px-2 rounded-md transition-all duration-300 hover:translate-x-1"
+      style={{
+        color: "var(--color-text-primary)",
+        fontFamily: "var(--font-primary)",
+        transition: "var(--transition-normal)",
+      }}
       onClick={onClick}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.backgroundColor = "rgba(155, 168, 171, 0.1)";
+        e.currentTarget.style.color = "var(--color-accent)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = "transparent";
+        e.currentTarget.style.color = "var(--color-text-primary)";
+      }}
     >
       {children}
     </Link>

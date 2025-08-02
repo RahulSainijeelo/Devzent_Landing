@@ -38,15 +38,17 @@ const reviewSchema = z.object({
 
 type ReviewFormValues = z.infer<typeof reviewSchema>;
 
+interface ReviewFormDialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onSuccess: () => void;
+}
+
 export function ReviewFormDialog({
   open,
   onOpenChange,
   onSuccess,
-}: {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  onSuccess: () => void;
-}) {
+}: ReviewFormDialogProps) {
   const form = useForm<ReviewFormValues>({
     resolver: zodResolver(reviewSchema),
     defaultValues: {
@@ -94,44 +96,74 @@ export function ReviewFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md responsive-review-modal">
-        <DialogHeader>
-          <DialogTitle>Write a Review</DialogTitle>
-          <DialogDescription>Share your experience with us.</DialogDescription>
-        </DialogHeader>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-4 h-full"
+      <DialogContent
+        className="sm:max-w-md w-[95vw] max-h-[90vh] flex flex-col p-0"
+        style={{
+          backgroundColor: "var(--color-surface)",
+          border: "1px solid var(--color-accent)",
+          borderRadius: "var(--radius-xl)",
+        }}
+      >
+        {/* Fixed Header */}
+        <DialogHeader
+          className="px-6 pt-6 pb-4 border-b border-opacity-20"
+          style={{ borderColor: "var(--color-accent)" }}
+        >
+          <DialogTitle
+            style={{
+              color: "var(--color-text-primary)",
+              fontFamily: "var(--font-heading)",
+            }}
           >
-            <div className="scrollable-form-content">
+            Write a Review
+          </DialogTitle>
+          <DialogDescription style={{ color: "var(--color-text-secondary)" }}>
+            Share your experience with us.
+          </DialogDescription>
+        </DialogHeader>
+
+        {/* Scrollable Form Content */}
+        <div className="flex-1 overflow-y-auto px-6 py-4">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
                 control={form.control}
                 name="enquiryId"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>ENQURY ID</FormLabel>
+                    <FormLabel style={{ color: "var(--color-text-primary)" }}>
+                      ENQUIRY ID
+                    </FormLabel>
                     <div className="flex items-center space-x-2">
-                      <div className="">ENQ-</div>
+                      <div style={{ color: "var(--color-text-secondary)" }}>
+                        ENQ-
+                      </div>
                       <FormControl className="flex-1">
-                        <Input placeholder="123456789" {...field} />
+                        <Input placeholder="1234567" {...field} />
                       </FormControl>
                     </div>
-                    <FormDescription>Please enter Enqury ID</FormDescription>
-                    <FormMessage />
+                    <FormDescription
+                      style={{ color: "var(--color-text-secondary)" }}
+                    >
+                      Please enter Enquiry ID
+                    </FormDescription>
+                    <FormMessage style={{ color: "var(--color-accent)" }} />
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel style={{ color: "var(--color-text-primary)" }}>
+                      Name
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="Your name" {...field} />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage style={{ color: "var(--color-accent)" }} />
                   </FormItem>
                 )}
               />
@@ -141,7 +173,9 @@ export function ReviewFormDialog({
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel style={{ color: "var(--color-text-primary)" }}>
+                      Email
+                    </FormLabel>
                     <FormControl>
                       <Input
                         type="email"
@@ -149,10 +183,12 @@ export function ReviewFormDialog({
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>
+                    <FormDescription
+                      style={{ color: "var(--color-text-secondary)" }}
+                    >
                       Your email won't be displayed publicly.
                     </FormDescription>
-                    <FormMessage />
+                    <FormMessage style={{ color: "var(--color-accent)" }} />
                   </FormItem>
                 )}
               />
@@ -162,14 +198,16 @@ export function ReviewFormDialog({
                 name="rating"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Rating</FormLabel>
+                    <FormLabel style={{ color: "var(--color-text-primary)" }}>
+                      Rating
+                    </FormLabel>
                     <FormControl>
                       <StarRating
                         rating={field.value}
                         onRatingChange={field.onChange}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage style={{ color: "var(--color-accent)" }} />
                   </FormItem>
                 )}
               />
@@ -179,24 +217,44 @@ export function ReviewFormDialog({
                 name="comment"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Your Review</FormLabel>
+                    <FormLabel style={{ color: "var(--color-text-primary)" }}>
+                      Your Review
+                    </FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Share your experience with our services..."
-                        className="min-h-[100px]"
+                        className="min-h-[120px] resize-none"
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage style={{ color: "var(--color-accent)" }} />
                   </FormItem>
                 )}
               />
-            </div>
-            <DialogFooter>
-              <Button type="submit">Submit Review</Button>
-            </DialogFooter>
-          </form>
-        </Form>
+
+              {/* Fixed Footer */}
+              <div
+                className="sticky bottom-0 bg-inherit pt-4 pb-2 border-t border-opacity-20"
+                style={{ borderColor: "var(--color-accent)" }}
+              >
+                <Button
+                  type="submit"
+                  className="w-full"
+                  style={{
+                    background: "var(--gradient-accent)",
+                    color: "var(--color-text-primary)",
+                    border: "none",
+                    borderRadius: "var(--radius-lg)",
+                    fontWeight: "600",
+                    padding: "0.75rem",
+                  }}
+                >
+                  Submit Review
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </div>
       </DialogContent>
     </Dialog>
   );
