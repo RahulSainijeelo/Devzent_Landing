@@ -1,27 +1,37 @@
+// HeroSection.tsx
 "use client";
-import useProfileAndPortfolio from "./useProfileAndPorfolio";
 import ShareDialog from "./ShareDialog";
 import HeroContent from "./HeroContent";
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
-const bgImg = {
-  backgroundImage:
-    "url('https://images.pexels.com/photos/5691622/pexels-photo-5691622.jpeg?auto=compress&cs=tinysrgb&h=1200')",
-};
-export function HeroSection({
-  profile,
-  loading,
-}: {
-  profile: any;
+
+interface Profile {
+  name?: string;
+  bio?: string;
+  experience?: string;
+  phoneNumbers?: string[];
+  email?: string;
+  address?: string;
+}
+
+interface HeroSectionProps {
+  profile: Profile | null;
   loading: boolean;
-}) {
+}
+
+export function HeroSection({ profile, loading }: HeroSectionProps) {
   const [isShareOpen, setIsShareOpen] = useState(false);
+
   // Share logic
   const handleShare = async () => {
     if (!profile) return;
     const shareData = {
-      title: `${profile.name} - Tiles & Labour Contractor`,
-      text: profile.bio,
+      title: `${
+        profile.name || "Tech Solutions Team"
+      } - Premium Freelance Services`,
+      text:
+        profile.bio ||
+        "Professional blockchain, web development, mobile apps, and AI solutions",
       url: window.location.href,
     };
 
@@ -50,13 +60,20 @@ export function HeroSection({
   };
 
   return (
-    <section className="relative min-h-screen">
-      {/* Background image with overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={bgImg}
-      >
-        <div className="absolute inset-0 bg-black/60" />
+    <section
+      className="relative min-h-screen"
+      style={{ background: "var(--gradient-primary)" }}
+    >
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div
+          className="absolute -top-40 -right-40 w-80 h-80 rounded-full blur-3xl opacity-20"
+          style={{ background: "var(--color-accent)" }}
+        />
+        <div
+          className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full blur-3xl opacity-20"
+          style={{ background: "var(--color-primary-600)" }}
+        />
       </div>
 
       {/* Main Content */}
