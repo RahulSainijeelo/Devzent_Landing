@@ -9,32 +9,49 @@ import { Button } from "@/components/ui/button";
 import Lottie from "lottie-react";
 import greenCheck from "@/public/lottie/green-check.json";
 
+interface ContactConfirmationDialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  requestId: string | null;
+}
+
 export function ContactConfirmationDialog({
   open,
   onOpenChange,
   requestId,
-}: {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  requestId: string | null;
-}) {
+}: ContactConfirmationDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Enquiry Submitted!</DialogTitle>
+          <DialogTitle
+            style={{
+              color: "var(--color-text-primary)",
+              fontFamily: "var(--font-heading)",
+            }}
+          >
+            Enquiry Submitted!
+          </DialogTitle>
         </DialogHeader>
         <div className="flex flex-col items-center py-4">
           <div className="w-24 h-24 mb-2">
             <Lottie animationData={greenCheck} loop={false} autoplay />
           </div>
-          <p className="text-center">
+          <p
+            className="text-center"
+            style={{ color: "var(--color-text-primary)" }}
+          >
             Thank you for contacting us. Your request has been received.
             <br />
-            <span className="font-semibold">Request ID:</span>{" "}
-            <span className="text-primary">{requestId}</span>
+            <strong>Request ID:</strong>{" "}
+            <span style={{ color: "var(--color-accent)" }}>
+              {requestId || "-"}
+            </span>
           </p>
-          <p className="text-sm text-gray-500 mt-2 text-center">
+          <p
+            className="text-sm mt-2 text-center"
+            style={{ color: "var(--color-text-secondary)" }}
+          >
             Please save this Request ID for future reference.
           </p>
         </div>

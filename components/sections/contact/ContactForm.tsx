@@ -12,7 +12,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 
@@ -20,12 +26,18 @@ const contactFormSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
   mobile: z.string().min(10, { message: "Please enter a valid mobile number" }),
   serviceType: z.string({ required_error: "Please select a service type" }),
-  message: z.string().min(10, { message: "Message must be at least 10 characters" }),
+  message: z
+    .string()
+    .min(10, { message: "Message must be at least 10 characters" }),
 });
 
 type ContactFormValues = z.infer<typeof contactFormSchema>;
 
-export function ContactForm({ onSuccess }: { onSuccess: (requestId: string) => void }) {
+interface ContactFormProps {
+  onSuccess: (requestId: string) => void;
+}
+
+export function ContactForm({ onSuccess }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<ContactFormValues>({
@@ -40,7 +52,6 @@ export function ContactForm({ onSuccess }: { onSuccess: (requestId: string) => v
 
   const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
-
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -83,11 +94,13 @@ export function ContactForm({ onSuccess }: { onSuccess: (requestId: string) => v
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Full Name</FormLabel>
+              <FormLabel style={{ color: "var(--color-text-primary)" }}>
+                Full Name
+              </FormLabel>
               <FormControl>
                 <Input placeholder="Your name" {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage style={{ color: "var(--color-accent)" }} />
             </FormItem>
           )}
         />
@@ -96,11 +109,13 @@ export function ContactForm({ onSuccess }: { onSuccess: (requestId: string) => v
           name="mobile"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Mobile Number</FormLabel>
+              <FormLabel style={{ color: "var(--color-text-primary)" }}>
+                Mobile Number
+              </FormLabel>
               <FormControl>
                 <Input placeholder="Your mobile number" {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage style={{ color: "var(--color-accent)" }} />
             </FormItem>
           )}
         />
@@ -109,24 +124,27 @@ export function ContactForm({ onSuccess }: { onSuccess: (requestId: string) => v
           name="serviceType"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Service Required</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormLabel style={{ color: "var(--color-text-primary)" }}>
+                Service Required
+              </FormLabel>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a service" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="tiles">Tiles Installation</SelectItem>
-                  <SelectItem value="marble">Marble Flooring</SelectItem>
-                  <SelectItem value="kota">Kota Stone Work</SelectItem>
-                  <SelectItem value="ladi">Ladi Work</SelectItem>
-                  <SelectItem value="bathroom">Bathroom Tiling</SelectItem>
-                  <SelectItem value="cladding">Stone Cladding</SelectItem>
+                  <SelectItem value="blockchain">
+                    Blockchain Projects
+                  </SelectItem>
+                  <SelectItem value="webapp">Web & App Development</SelectItem>
+                  <SelectItem value="graphicdesign">Graphic Design</SelectItem>
+                  <SelectItem value="chatbots">Chatbots & AI</SelectItem>
+                  <SelectItem value="custom">Custom Software</SelectItem>
                   <SelectItem value="other">Other Services</SelectItem>
                 </SelectContent>
               </Select>
-              <FormMessage />
+              <FormMessage style={{ color: "var(--color-accent)" }} />
             </FormItem>
           )}
         />
@@ -135,7 +153,9 @@ export function ContactForm({ onSuccess }: { onSuccess: (requestId: string) => v
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Your Message</FormLabel>
+              <FormLabel style={{ color: "var(--color-text-primary)" }}>
+                Your Message
+              </FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Describe your project requirements..."
@@ -143,7 +163,7 @@ export function ContactForm({ onSuccess }: { onSuccess: (requestId: string) => v
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage style={{ color: "var(--color-accent)" }} />
             </FormItem>
           )}
         />

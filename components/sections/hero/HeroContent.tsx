@@ -1,61 +1,211 @@
+// HeroContent.tsx
 import { Skeleton } from "@/components/ui/skeleton";
 import ContactActions from "./ContactActions";
+import { Code, Palette, Smartphone, Bot, Globe, Blocks } from "lucide-react";
+
+interface Profile {
+  name?: string;
+  bio?: string;
+  experience?: string;
+  phoneNumbers?: string[];
+  email?: string;
+}
+
+interface HeroContentProps {
+  loading: boolean;
+  profile: Profile | null;
+  onShare: () => void;
+}
+
+const services = [
+  { icon: Blocks, name: "Blockchain", desc: "Smart Contracts & Web3" },
+  { icon: Smartphone, name: "Mobile Apps", desc: "iOS & Android" },
+  { icon: Globe, name: "Web Development", desc: "Full-stack Solutions" },
+  { icon: Palette, name: "Design", desc: "UI/UX & Branding" },
+  { icon: Bot, name: "AI & Chatbots", desc: "Intelligent Automation" },
+  { icon: Code, name: "Custom Software", desc: "Tailored Solutions" },
+];
 
 export default function HeroContent({
   loading,
   profile,
   onShare,
-}: {
-  loading: boolean;
-  profile: any;
-  onShare: () => void;
-}) {
+}: HeroContentProps) {
   return (
-    <div className="relative container mx-auto px-4 py-32 md:py-40 flex flex-col min-h-screen justify-center">
-      <div className="max-w-3xl">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-          {loading ? (
-            <Skeleton className="h-10 w-2/3 mb-2" />
-          ) : (
-            "Quality Tiles & Stonework"
-          )}
-        </h1>
-        <p className="text-xl md:text-2xl text-gray-200 mb-6">
-          {loading ? (
-            <Skeleton className="h-8 w-2/3 mb-2" />
-          ) : (
-            "Professional tile and stonework contractor."
-          )}
-          <span className="block mt-2">Serving Navi Mumbai since 2000.</span>
-        </p>
-        <ContactActions
-          phoneNumber={profile?.phoneNumbers?.[0] || ""}
-          whatsappNumber={profile?.whatsapp || ""}
-          profileName={profile?.name || ""}
-          address={profile?.address || ""}
-          onShare={onShare}
-        />
-        <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg max-w-2xl">
-          <h2 className="text-xl font-semibold text-white mb-3">
-            About{" "}
+    <div className="relative container mx-auto px-4 py-16 md:py-24 flex flex-col min-h-screen justify-center">
+      <div className="max-w-6xl mx-auto">
+        {/* Main Hero Content */}
+        <div className="text-center mb-12">
+          <div className="inline-block mb-4">
+            <span
+              className="px-4 py-2 rounded-full text-sm font-medium"
+              style={{
+                background: "var(--gradient-accent)",
+                color: "var(--color-text-primary)",
+              }}
+            >
+              ✨ Your Vision, Our Expertise
+            </span>
+          </div>
+
+          <h1
+            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+            style={{
+              background: "var(--gradient-primary)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              fontFamily: "var(--font-heading)",
+            }}
+          >
             {loading ? (
-              <Skeleton className="h-6 w-32 inline-block" />
+              <Skeleton className="h-16 w-2/3 mx-auto mb-4" />
             ) : (
-              profile?.name || "Kailash Chand Yogi"
+              <>
+                Premium Freelance
+                <br />
+                <span style={{ color: "var(--color-accent)" }}>
+                  Tech Solutions
+                </span>
+              </>
             )}
-          </h2>
-          {loading ? (
-            <Skeleton className="h-6 w-2/3 mb-2" />
-          ) : (
-            <p className="text-gray-200">{profile?.bio}</p>
-          )}
-          <p className="text-gray-200">
+          </h1>
+
+          <p
+            className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto"
+            style={{ color: "var(--color-text-secondary)" }}
+          >
             {loading ? (
-              <Skeleton className="h-4 w-1/3" />
+              <Skeleton className="h-8 w-3/4 mx-auto mb-4" />
             ) : (
-              "Experience: " + profile?.experience || "Experience 15+ years"
+              "From blockchain innovation to AI-powered solutions. We transform ideas into digital reality with cutting-edge technology and exceptional design."
             )}
           </p>
+
+          <ContactActions
+            phoneNumber={profile?.phoneNumbers?.[0] || ""}
+            email={profile?.email || ""}
+            profileName={profile?.name || "Tech Solutions Team"}
+            onShare={onShare}
+          />
+        </div>
+
+        {/* Services Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
+          {services.map((service, index) => (
+            <div
+              key={service.name}
+              className="group p-4 rounded-xl backdrop-blur-sm transition-all duration-300 hover:scale-105 cursor-pointer"
+              style={{
+                background: "rgba(255, 255, 255, 0.05)",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                transition: "var(--transition-normal)",
+              }}
+            >
+              <service.icon
+                className="h-8 w-8 mx-auto mb-2 transition-colors"
+                style={{ color: "var(--color-accent)" }}
+              />
+              <h3
+                className="font-semibold text-sm text-center mb-1"
+                style={{ color: "var(--color-text-primary)" }}
+              >
+                {service.name}
+              </h3>
+              <p
+                className="text-xs text-center"
+                style={{ color: "var(--color-text-muted)" }}
+              >
+                {service.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* About Section */}
+        <div
+          className="backdrop-blur-sm p-8 rounded-2xl max-w-4xl mx-auto"
+          style={{
+            background: "rgba(255, 255, 255, 0.08)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            borderRadius: "var(--radius-xl)",
+          }}
+        >
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h2
+                className="text-2xl font-semibold mb-4"
+                style={{
+                  color: "var(--color-text-primary)",
+                  fontFamily: "var(--font-heading)",
+                }}
+              >
+                {loading ? (
+                  <Skeleton className="h-8 w-48" />
+                ) : (
+                  `About ${profile?.name || "Our Team"}`
+                )}
+              </h2>
+
+              {loading ? (
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-3/4" />
+                  <Skeleton className="h-4 w-1/2" />
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <p style={{ color: "var(--color-text-secondary)" }}>
+                    {profile?.bio ||
+                      "We are a dedicated team of developers, designers, and blockchain specialists committed to delivering exceptional digital solutions. Our expertise spans across modern technologies to bring your vision to life."}
+                  </p>
+
+                  <div className="flex items-center gap-4 flex-wrap">
+                    <div
+                      className="px-3 py-1 rounded-full text-sm"
+                      style={{
+                        background: "var(--color-surface)",
+                        color: "var(--color-accent)",
+                      }}
+                    >
+                      {profile?.experience || "5+ Years Experience"}
+                    </div>
+                    <div
+                      className="px-3 py-1 rounded-full text-sm"
+                      style={{
+                        background: "var(--color-surface)",
+                        color: "var(--color-accent)",
+                      }}
+                    >
+                      50+ Projects Delivered
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-4">
+              <div
+                className="p-4 rounded-lg"
+                style={{ background: "var(--color-surface)" }}
+              >
+                <h3
+                  className="font-semibold mb-2"
+                  style={{ color: "var(--color-text-primary)" }}
+                >
+                  🚀 Why Choose Us?
+                </h3>
+                <ul
+                  className="space-y-1 text-sm"
+                  style={{ color: "var(--color-text-secondary)" }}
+                >
+                  <li>✓ Direct communication, no middlemen</li>
+                  <li>✓ Agile development process</li>
+                  <li>✓ Post-launch support included</li>
+                  <li>✓ Competitive pricing</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

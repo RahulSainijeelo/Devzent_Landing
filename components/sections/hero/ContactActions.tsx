@@ -1,80 +1,118 @@
+// ContactActions.tsx
 import { Button } from "@/components/ui/button";
-import { Share2, Phone, MessageSquare, Map, MessageCircle } from "lucide-react";
+import { Share2, Phone, Mail, MessageSquare, Calendar } from "lucide-react";
+
+interface ContactActionsProps {
+  phoneNumber: string;
+  email: string;
+  profileName: string;
+  onShare: () => void;
+}
 
 export default function ContactActions({
   phoneNumber,
-  whatsappNumber,
+  email,
   profileName,
-  address,
   onShare,
-}: {
-  phoneNumber: string;
-  whatsappNumber: string;
-  profileName: string;
-  address: string;
-  onShare: () => void;
-}) {
-  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    address
-  )}`;
-
+}: ContactActionsProps) {
   const handleCall = () => {
-    window.location.href = `tel:${phoneNumber}`;
+    if (phoneNumber) {
+      window.location.href = `tel:${phoneNumber}`;
+    }
   };
 
-  const handleWhatsApp = () => {
-    window.open(
-      `https://wa.me/${whatsappNumber}?text=Hello%20${encodeURIComponent(
-        profileName
-      )},%20I'm%20interested%20in%20your%20services.`,
-      "_blank"
-    );
+  const handleEmail = () => {
+    if (email) {
+      window.location.href = `mailto:${email}?subject=Project Inquiry&body=Hello ${profileName}, I'm interested in discussing a project with your team.`;
+    }
   };
 
-  const handleDirections = () => {
-    window.open(googleMapsUrl, "_blank");
+  const handleBookConsultation = () => {
+    // You can integrate with Calendly or similar booking system
+    window.open("#contact", "_self");
   };
 
   return (
-    <div className="flex flex-wrap gap-3 mb-8">
-      <Button onClick={handleCall} size="lg" className="gap-2">
+    <div className="flex flex-wrap justify-center gap-4 mb-12">
+      <Button
+        onClick={handleCall}
+        size="lg"
+        className="gap-2 px-6 py-3"
+        style={{
+          background: "var(--gradient-accent)",
+          color: "var(--color-text-primary)",
+          border: "none",
+          borderRadius: "var(--radius-lg)",
+          transition: "var(--transition-normal)",
+        }}
+      >
         <Phone className="h-5 w-5" />
         <span>Call Now</span>
       </Button>
+
       <Button
-        onClick={handleWhatsApp}
+        onClick={handleEmail}
         variant="secondary"
         size="lg"
-        className="gap-2"
+        className="gap-2 px-6 py-3"
+        style={{
+          background: "var(--color-surface)",
+          color: "var(--color-text-primary)",
+          border: "1px solid var(--color-accent)",
+          borderRadius: "var(--radius-lg)",
+          transition: "var(--transition-normal)",
+        }}
       >
-        <MessageCircle className="h-5 w-5" />
-        <span>WhatsApp</span>
+        <Mail className="h-5 w-5" />
+        <span>Email Us</span>
       </Button>
+
       <Button
-        onClick={handleDirections}
+        onClick={handleBookConsultation}
         variant="outline"
         size="lg"
-        className="gap-2 bg-white/10 hover:bg-white/20 text-white border-white/30"
+        className="gap-2 px-6 py-3"
+        style={{
+          background: "rgba(255, 255, 255, 0.1)",
+          color: "var(--color-text-primary)",
+          border: "1px solid rgba(255, 255, 255, 0.3)",
+          borderRadius: "var(--radius-lg)",
+          transition: "var(--transition-normal)",
+        }}
       >
-        <Map className="h-5 w-5" />
-        <span>Directions</span>
+        <Calendar className="h-5 w-5" />
+        <span>Book Consultation</span>
       </Button>
+
       <Button
         asChild
         variant="outline"
         size="lg"
-        className="gap-2 bg-white/10 hover:bg-white/20 text-white border-white/30"
+        className="gap-2 px-6 py-3"
+        style={{
+          background: "rgba(255, 255, 255, 0.1)",
+          color: "var(--color-text-primary)",
+          border: "1px solid rgba(255, 255, 255, 0.3)",
+          borderRadius: "var(--radius-lg)",
+          transition: "var(--transition-normal)",
+        }}
       >
         <a href="#contact">
           <MessageSquare className="h-5 w-5" />
-          <span>Enquiry</span>
+          <span>Get Quote</span>
         </a>
       </Button>
+
       <Button
         onClick={onShare}
         variant="ghost"
         size="icon"
-        className="text-white hover:bg-white/20 hover:text-white"
+        className="p-3"
+        style={{
+          color: "var(--color-text-primary)",
+          borderRadius: "var(--radius-lg)",
+          transition: "var(--transition-normal)",
+        }}
       >
         <Share2 className="h-5 w-5" />
       </Button>

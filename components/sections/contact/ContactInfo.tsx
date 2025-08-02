@@ -6,66 +6,77 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Phone, MapPin, Clock } from "lucide-react";
+import { Phone, Clock } from "lucide-react";
 
-export function ContactInfo({
-  profile,
-  profileLoading,
-}: {
-  profile: any;
+interface Profile {
+  phoneNumbers?: string[];
+  workingHours?: string;
+}
+
+interface ContactInfoProps {
+  profile: Profile | null;
   profileLoading: boolean;
-}) {
+}
+
+export function ContactInfo({ profile, profileLoading }: ContactInfoProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Contact Information</CardTitle>
-        <CardDescription>
-          Reach out directly via phone or visit our location.
+        <CardTitle
+          style={{
+            color: "var(--color-text-primary)",
+            fontFamily: "var(--font-heading)",
+          }}
+        >
+          Contact Information
+        </CardTitle>
+        <CardDescription style={{ color: "var(--color-text-secondary)" }}>
+          Reach out directly via phone or email for any inquiries
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-start">
-          <Phone className="h-5 w-5 text-primary mr-3 mt-0.5 shrink-0" />
+          <Phone
+            className="h-5 w-5 mr-3 mt-0.5 shrink-0"
+            style={{ color: "var(--color-accent)" }}
+            aria-hidden="true"
+          />
           <div>
-            <Label className="font-medium mb-1 block">Phone Numbers</Label>
+            <Label
+              className="font-medium mb-1 block"
+              style={{ color: "var(--color-text-primary)" }}
+            >
+              Phone Numbers
+            </Label>
             {profileLoading ? (
-              <p className="text-gray-700">Loading...</p>
+              <p style={{ color: "var(--color-text-secondary)" }}>Loading...</p>
             ) : (
-              profile?.phoneNumbers?.map((num: string, i: number) => (
-                <p key={i} className="text-gray-700">
+              profile?.phoneNumbers?.map((num, i) => (
+                <p key={i} style={{ color: "var(--color-text-secondary)" }}>
                   {num}
                 </p>
               ))
             )}
           </div>
         </div>
+
         <div className="flex items-start">
-          <MapPin className="h-5 w-5 text-primary mr-3 mt-0.5 shrink-0" />
+          <Clock
+            className="h-5 w-5 mr-3 mt-0.5 shrink-0"
+            style={{ color: "var(--color-accent)" }}
+            aria-hidden="true"
+          />
           <div>
-            <Label className="font-medium mb-1 block">Address</Label>
-            <p className="text-gray-700">
-              {profileLoading ? "Loading..." : profile?.address}
-            </p>
-            {profile?.address && (
-              <a
-                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                  profile.address
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline inline-block mt-2"
-              >
-                View on Google Maps
-              </a>
-            )}
-          </div>
-        </div>
-        <div className="flex items-start">
-          <Clock className="h-5 w-5 text-primary mr-3 mt-0.5 shrink-0" />
-          <div>
-            <Label className="font-medium mb-1 block">Working Hours</Label>
-            <p className="text-gray-700">
-              {profileLoading ? "Loading..." : profile?.workingHours}
+            <Label
+              className="font-medium mb-1 block"
+              style={{ color: "var(--color-text-primary)" }}
+            >
+              Working Hours
+            </Label>
+            <p style={{ color: "var(--color-text-secondary)" }}>
+              {profileLoading
+                ? "Loading..."
+                : profile?.workingHours || "Mon-Sat: 9:00 AM - 6:00 PM"}
             </p>
           </div>
         </div>
