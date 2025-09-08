@@ -40,7 +40,7 @@ export function Header() {
               isScrolled ? "text-primary" : "text-white"
             )}
           >
-            S&K Enterprises
+            Devzent
           </h1>
         </Link>
 
