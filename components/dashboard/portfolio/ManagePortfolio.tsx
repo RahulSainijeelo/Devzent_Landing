@@ -13,7 +13,7 @@ import type { PortfolioItem } from "@/types/PortfolioItem";
 type FormImage = { url: string; deleteUrl: string };
 
 interface FormState {
-  id: string; // <-- Add this line
+  id: string;
   title: string;
   category: string;
   description: string;
@@ -21,12 +21,13 @@ interface FormState {
 }
 
 const categories = [
-  "Tiles",
-  "Marble",
-  "Kota Stone",
-  "Ladi",
-  "Vitrified Tiles",
-  "Stone Cladding",
+  "Web Development",
+  "Mobile Apps",
+  "Blockchain",
+  "AI/ML",
+  "UI/UX Design",
+  "E-commerce",
+  "Custom Software",
   "Other",
 ] as const;
 
@@ -54,6 +55,7 @@ export function ManagePortfolio() {
     const cached = sessionStorage.getItem("portfolioItems");
     const cachedAt = sessionStorage.getItem("portfolioItemsAt");
     const now = Date.now();
+
     if (
       !force &&
       cached &&
@@ -64,6 +66,7 @@ export function ManagePortfolio() {
       setLoading(false);
       return;
     }
+
     try {
       const res = await fetch("/api/portfolio", { next: { revalidate: 120 } });
       const data = await res.json();
@@ -154,12 +157,12 @@ export function ManagePortfolio() {
       });
       if (!res.ok) throw new Error(await res.text());
       toast({
-        title: "Item added",
+        title: "Success!",
         description: "New portfolio item has been added successfully",
       });
       setIsAddDialogOpen(false);
       resetForm();
-      await fetchPortfolio(true); // <--- force refetch
+      await fetchPortfolio(true);
     } catch (err: any) {
       toast({
         title: "Error",
@@ -201,13 +204,13 @@ export function ManagePortfolio() {
       });
       if (!res.ok) throw new Error(await res.text());
       toast({
-        title: "Item updated",
+        title: "Success!",
         description: "Portfolio item has been updated successfully",
       });
       setIsEditDialogOpen(false);
       setSelectedItem(null);
       resetForm();
-      await fetchPortfolio(true); // <--- force refetch
+      await fetchPortfolio(true);
     } catch (err: any) {
       toast({
         title: "Error",
@@ -230,12 +233,12 @@ export function ManagePortfolio() {
       });
       if (!res.ok) throw new Error(await res.text());
       toast({
-        title: "Item deleted",
+        title: "Success!",
         description: "Portfolio item has been deleted successfully",
       });
       setIsDeleteDialogOpen(false);
       setSelectedItem(null);
-      await fetchPortfolio(true); // <--- force refetch
+      await fetchPortfolio(true);
     } catch (err: any) {
       toast({
         title: "Error",
@@ -247,22 +250,73 @@ export function ManagePortfolio() {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Portfolio Items</h2>
-        <Button onClick={openAddDialog} disabled={loading}>
-          <PlusCircle className="mr-2 h-4 w-4" />
-          Add New Item
+    <div
+      className="space-y-6"
+      style={{
+        backgroundColor: "#ffffff",
+        color: "#000000",
+        fontFamily: "var(--font-primary)",
+      }}
+    >
+      {/* Header Section */}
+      <div
+        className="flex items-center justify-between p-6 rounded-lg border"
+        style={{
+          backgroundColor: "#f8fafc",
+          borderColor: "#e2e8f0",
+          borderWidth: "1px",
+        }}
+      >
+        <div>
+          <h2
+            className="text-2xl font-semibold mb-1"
+            style={{
+              color: "#000000",
+              fontFamily: "var(--font-heading)",
+            }}
+          >
+            Portfolio Management
+          </h2>
+          <p className="text-base" style={{ color: "#64748b" }}>
+            Showcase your best work and projects
+          </p>
+        </div>
+        <Button
+          onClick={openAddDialog}
+          disabled={loading}
+          className="gap-2 px-6 py-3 font-medium"
+          style={{
+            backgroundColor: "#3b82f6",
+            color: "#ffffff",
+            border: "none",
+            borderRadius: "8px",
+            fontWeight: "500",
+            fontSize: "14px",
+            boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+          }}
+        >
+          <PlusCircle className="h-4 w-4" />
+          Add New Project
         </Button>
       </div>
 
-      {/* PortfolioItems */}
-      <PortfolioItems
-        openDeleteDialog={openDeleteDialog}
-        openEditDialog={openEditDialog}
-        portfolioItems={portfolioItems}
-        loading={loading}
-      />
+      {/* Content Section */}
+      <div
+        className="rounded-lg border p-6"
+        style={{
+          backgroundColor: "#ffffff",
+          borderColor: "#e5e7eb",
+          borderWidth: "1px",
+        }}
+      >
+        {/* Portfolio Items */}
+        <PortfolioItems
+          openDeleteDialog={openDeleteDialog}
+          openEditDialog={openEditDialog}
+          portfolioItems={portfolioItems}
+          loading={loading}
+        />
+      </div>
 
       {/* Add Portfolio Item Dialog */}
       <AddItem

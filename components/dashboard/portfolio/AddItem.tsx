@@ -43,12 +43,13 @@ interface AddItemProps {
 }
 
 const categories = [
-  "Tiles",
-  "Marble",
-  "Kota Stone",
-  "Ladi",
-  "Vitrified Tiles",
-  "Stone Cladding",
+  "Web Development",
+  "Mobile Apps",
+  "Blockchain",
+  "AI/ML",
+  "UI/UX Design",
+  "E-commerce",
+  "Custom Software",
   "Other",
 ];
 

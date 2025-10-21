@@ -8,9 +8,9 @@ import { ClerkProvider } from "@clerk/nextjs";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "S&K Enterprises - Tiles & Labour Contractor",
+  title: "Devzent - Your vision our Expertise",
   description:
-    "Professional tiles, ladi, marble, and Kota stone works in Navi Mumbai. Established 2021.",
+    "Devzent is a platform that connects you with top-notch developers to bring your ideas to life. Whether you need a website, app, or custom software, our expert team is here to help.",
 };
 
 export default function RootLayout({
@@ -18,6 +18,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  console.log(Date.now());
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
