@@ -40,8 +40,9 @@ export default function HeroContent({
             <span
               className="px-4 py-2 rounded-full text-sm font-medium"
               style={{
-                background: "var(--gradient-accent)",
-                color: "var(--color-text-primary)",
+                background:
+                  "linear-gradient(90deg, #0ff 0%, #6f6fff 50%, #a855f7 100%)",
+                color: "#fff",
               }}
             >
               ✨ Your Vision, Our Expertise
@@ -61,7 +62,17 @@ export default function HeroContent({
               <>
                 Premium Freelance
                 <br />
-                <span style={{ color: "var(--color-accent)" }}>
+                <span
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #0ff 0%, #6f6fff 50%, #a855f7 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    color: "#fff",
+                    textShadow:
+                      "0 2px 16px rgba(0,0,0,0.18), 0 1px 0 rgba(0,0,0,0.08)",
+                  }}
+                >
                   Tech Solutions
                 </span>
               </>
@@ -89,7 +100,7 @@ export default function HeroContent({
 
         {/* Services Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
-          {services.map((service, index) => (
+          {services.map((service) => (
             <div
               key={service.name}
               className="group p-4 rounded-xl backdrop-blur-sm transition-all duration-300 hover:scale-105 cursor-pointer"
@@ -101,7 +112,7 @@ export default function HeroContent({
             >
               <service.icon
                 className="h-8 w-8 mx-auto mb-2 transition-colors"
-                style={{ color: "var(--color-accent)" }}
+                style={{ color: "#6f6fff" }}
               />
               <h3
                 className="font-semibold text-sm text-center mb-1"
